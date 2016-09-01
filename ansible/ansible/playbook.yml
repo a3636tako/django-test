@@ -1,0 +1,17 @@
+- hosts: local 
+  vars:
+    db_username: root
+    db_userpass: t3a6k3o6
+    db_host: portforest-database.cwulxggd1mp8.us-west-2.rds.amazonaws.com
+
+  tasks:
+    - name: createdb 
+      mysql_db: name=portforest login_user={{db_username}} login_password={{db_userpass}} login_host={{db_host}} state=present
+
+    - name: createuser
+      mysql_user: name=portforest password=portforest priv=portforest.*:ALL state=present host={{item}} login_user={{db_username}} login_password={{db_userpass}} login_host={{db_host}} 
+      with_items:
+        - '%'
+        - 'localhost'
+
+

@@ -1,0 +1,21 @@
+- name: createdb
+  mysql_db:
+    name: "{{db_name}}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    login_host: "{{db_host}}"
+    state: present
+
+- name: createuser
+  mysql_user:
+    name: "{{db_username}}"
+    password: "{{db_password}}"
+    priv: "{{db_name}}.*:ALL"
+    state: present
+    host: "{{item}}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    login_host: "{{db_host}}"
+  with_items:
+    - '%'
+    - 'localhost'
