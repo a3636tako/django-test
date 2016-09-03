@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'portforest',
         'USER': 'portforest',
         'PASSWORD': 'portforest',
-        'HOST': '192.168.33.10',
+        'HOST': 'localhost',
         'PORT': '3306'
     }
 }
@@ -131,4 +131,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "mybook/static"),
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 

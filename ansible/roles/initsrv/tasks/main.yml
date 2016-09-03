@@ -1,0 +1,17 @@
+- name: install python34 
+  yum: name=python34 state=installed
+
+- name: check pip 
+  shell: which pip 
+  register: which_pip
+  ignore_errors: true 
+  changed_when: False
+
+- name: install pip
+  shell: curl -kL https://bootstrap.pypa.io/get-pip.py | python
+  when: which_pip.rc == 1 
+
+- name: install virtualenv
+  pip: name=virtualenv
+
+
