@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo Deploy! >> /home/ec2-user/deploy.txt
+echo Deploy22! >> /home/ec2-user/deploy.txt
 date >> /home/ec2-user/deploy.txt
 
