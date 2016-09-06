@@ -1,5 +1,6 @@
 - name: disable SELinux
   shell: setenforce 0
+  ignore_errors: true
 
 - name: conf SELinux
   template: src=selinux-config.j2 dest=/etc/selinux/config

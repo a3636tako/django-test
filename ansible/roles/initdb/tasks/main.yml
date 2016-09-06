@@ -1,3 +1,9 @@
+- name: MySQL dev
+  yum: name=mysql-devel state=present
+
+- name: gcc
+  yum: name=gcc state=present
+
 - name: MySQL-python must be installed
   yum: name=MySQL-python state=present
 
