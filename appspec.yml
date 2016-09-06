@@ -3,6 +3,10 @@ os: linux
 files:
   - source: mybook/
     destination: /var/www/django/mybook
+
+  - source: /
+    destination: /tmp/mybook
+
 hooks:
   ApplicationStop:
     - location: scripts/applicationStop.sh
