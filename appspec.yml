@@ -1,11 +1,20 @@
 version: 0.0
 os: linux
 files:
-  - source: /
+  - source: mybook/
     destination: /var/www/django/mybook
 hooks:
+  ApplicationStop:
+    - location: scripts/applicationStop.sh
+      timeout: 180
+      runas: root
+
+  AfterInstall:
+    - location: scripts/afterInstall.sh
+      timeout: 180
+
   ApplicationStart:
-  - location: deploy.sh
-    timeout: 180
-    runas: root
+    - location: scripts/applicationStart.sh
+      timeout: 180
+      runas: root
 

@@ -9,6 +9,7 @@
 
   roles:
     - initdb
+    - initsrv
 
 
 

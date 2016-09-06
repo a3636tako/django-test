@@ -1,3 +1,9 @@
+- name: disable SELinux
+  shell: setenforce 0
+
+- name: conf SELinux
+  template: src=selinux-config.j2 dest=/etc/selinux/config
+
 - name: install python34 
   yum: name=python34 state=installed
 
@@ -13,5 +19,20 @@
 
 - name: install virtualenv
   pip: name=virtualenv
+
+- name: install pythondev
+  yum: name=python34-devel state=installed
+
+- name: install uwsgi
+  pip: name=uwsgi virtualenv=/opt/virtualenv/uwsgi virtualenv_python=/usr/bin/python3
+
+- name: install python library
+  pip: requirements=/var/www/django/mybook/requirements.txt virtualenv=/opt/virtualenv/mybook virtualenv_python=/usr/bin/python3
+
+- name: install nginx
+  yum: name=nginx state=installed
+
+- name: set nginx conf
+  file: src=/var/www/django/mybook/mybook_nginx.conf dest=/etc/nginx/conf.d/mybook_nginx.conf state=link
 
 
