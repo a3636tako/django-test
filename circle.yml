@@ -1,0 +1,10 @@
+test:
+  override:
+    - exit 0
+deployment: 
+  production: # （本番）
+    branch: master
+    commands:
+      - sh circleci-deploy-master.sh:
+          timeout: 1500
+
