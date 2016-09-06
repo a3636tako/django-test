@@ -1,3 +1,6 @@
+- name: MySQL-python must be installed
+  yum: name=MySQL-python state=present
+
 - name: createdb
   mysql_db:
     name: "{{db_name}}"
