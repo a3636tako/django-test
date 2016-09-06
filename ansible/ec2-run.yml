@@ -3,7 +3,7 @@
   vars:
     db_username: portforest
     db_password: portforest
-	db_name: portforest
+    db_name: portforest
     db_host: localhost
     mysql_root_password: root
 
