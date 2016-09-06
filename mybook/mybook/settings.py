@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'portforest',
         'USER': 'portforest',
         'PASSWORD': 'portforest',
-        'HOST': 'localhost',
+        'HOST': 'portforest-database.cwulxggd1mp8.us-west-2.rds.amazonaws.com',
         'PORT': '3306'
     }
 }
