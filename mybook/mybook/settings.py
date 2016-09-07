@@ -78,17 +78,13 @@ WSGI_APPLICATION = 'mybook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portforest',
-        'USER': 'portforest',
-        'PASSWORD': 'portforest',
-        'HOST': 'portforest-database.cwulxggd1mp8.us-west-2.rds.amazonaws.com',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-import pymysql
-pymysql.install_as_MySQLdb()
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -134,3 +130,13 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+# switch settings
+run_machine = os.environ.get("DJANGO_RUN_MACHINE")
+if run_machine == "virtual":
+    from mybook.settings_virtual import *
+
+elif run_machine == "develop":
+    from mybook.settings_develop import *
+
+elif run_machine == "production":
+    from mybook.settings_production import *

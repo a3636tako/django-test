@@ -1,0 +1,17 @@
+- hosts: all 
+  sudo: yes
+  vars:
+    db_username: portforest
+    db_password: portforest
+    db_name: portforest-prod
+    db_host: portforest-database.cwulxggd1mp8.us-west-2.rds.amazonaws.com
+    mysql_root_password: root
+    app_name: mybook-prod
+    deploy_path: "/var/www/django/"
+
+  roles:
+    - initdb
+    - initsrv
+
+
+

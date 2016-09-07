@@ -4,12 +4,15 @@
     db_username: portforest
     db_password: portforest
     db_name: portforest
-    db_host: portforest-database.cwulxggd1mp8.us-west-2.rds.amazonaws.com
+    db_host: localhost
     mysql_root_password: root
-
+    app_name: mybook
+    deploy_path: "/var/www/django/"
   roles:
+    - mariadb
     - initdb
     - initsrv
+
 
 
 

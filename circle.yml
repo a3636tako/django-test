@@ -1,10 +1,15 @@
 test:
   override:
     - exit 0
-deployment: 
-  production: # （本番）
-    branch: master
+
+deployment:
+  production:
+    branch: production
     commands:
-      - sh circleci-deploy-master.sh:
-          timeout: 1500
+      - sh circleci/deploy-production.sh:
+
+  development:
+    branch: develop
+    commands:
+      - sh circleci/deploy-development.sh:
 

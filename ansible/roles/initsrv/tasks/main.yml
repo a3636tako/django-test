@@ -28,12 +28,15 @@
   pip: name=uwsgi virtualenv=/opt/virtualenv/uwsgi virtualenv_python=/usr/bin/python3
 
 - name: install python library
-  pip: requirements=/var/www/django/mybook/requirements.txt virtualenv=/opt/virtualenv/mybook virtualenv_python=/usr/bin/python3
+  pip: requirements={{deploy_path}}/{{app_name}}/requirements.txt virtualenv=/opt/virtualenv/{{app_name}} virtualenv_python=/usr/bin/python3
 
 - name: install nginx
   yum: name=nginx state=installed
 
 - name: set nginx conf
-  file: src=/var/www/django/mybook/mybook_nginx.conf dest=/etc/nginx/conf.d/mybook_nginx.conf state=link
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
+- name: set nginx app conf
+  file: src={{deploy_path}}/{{app_name}}/{{app_name}}_nginx.conf dest=/etc/nginx/conf.d/{{app_name}}_nginx.conf state=link
 
 
