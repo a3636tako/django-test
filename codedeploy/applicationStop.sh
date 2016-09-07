@@ -9,6 +9,5 @@ fi
 
 kill -QUIT `cat /var/www/django/${APP_NAME}/mybook.pid`
 rm -rf /var/www/django/${APP_NAME}
-rm -rf /tmp/${APP_NAME}
 
 

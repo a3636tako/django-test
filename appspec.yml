@@ -10,6 +10,11 @@ hooks:
       timeout: 180
       runas: root
 
+  BeforeInstall:
+    - location: codedeploy/beforeInstall.sh
+      timeout: 180
+      runas: root
+
   AfterInstall:
     - location: codedeploy/afterInstall.sh
       timeout: 180
