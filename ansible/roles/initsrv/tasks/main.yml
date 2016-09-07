@@ -1,3 +1,4 @@
+- include_vars: vars.json
 - name: disable SELinux
   shell: setenforce 0
   ignore_errors: true
@@ -5,36 +6,18 @@
 - name: conf SELinux
   template: src=selinux-config.j2 dest=/etc/selinux/config
 
-- name: install python34 
-  yum: name=python34 state=installed
-
-- name: check pip 
-  shell: which pip 
-  register: which_pip
-  ignore_errors: true 
-  changed_when: False
-
-- name: install pip
-  shell: curl -kL https://bootstrap.pypa.io/get-pip.py | python
-  when: which_pip.rc == 1 
+- include: python_install.yml
 
 - name: install virtualenv
   pip: name=virtualenv
 
-- name: install pythondev
-  yum: name=python34-devel state=installed
-
 - name: install uwsgi
-  pip: name=uwsgi virtualenv=/opt/virtualenv/uwsgi virtualenv_python=/usr/bin/python3
+  pip: name=uwsgi virtualenv=/opt/virtualenv/uwsgi virtualenv_python={{ directories.Python3.prefix }}bin/python3
 
 - name: install python library
-  pip: requirements={{deploy_path}}/{{app_name}}/requirements.txt virtualenv=/opt/virtualenv/{{app_name}} virtualenv_python=/usr/bin/python3
+  pip: requirements={{deploy_path}}/{{app_name}}/requirements.txt virtualenv=/opt/virtualenv/{{app_name}} virtualenv_python={{ directories.Python3.prefix }}bin/python3
 
-- name: install nginx
-  yum: name=nginx state=installed
-
-- name: set nginx conf
-  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+- include: nginx_install.yml
 
 - name: set nginx app conf
   file: src={{deploy_path}}/{{app_name}}/{{app_name}}_nginx.conf dest=/etc/nginx/conf.d/{{app_name}}_nginx.conf state=link

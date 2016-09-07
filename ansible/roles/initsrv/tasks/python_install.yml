@@ -1,0 +1,60 @@
+- name: install some software with yum
+  yum: name={{ item }}
+  with_items:
+    - openssl-devel
+    - zlib-devel
+    - bzip2
+    - bzip2-devel
+    - readline-devel
+    - sqlite
+    - sqlite-devel
+
+- name: check python3
+  stat: path={{ directories.Python3.prefix }}bin/python3
+  register: which_python3
+
+- name: Get tarball of Python
+  get_url: url={{ base.get_url }}/{{ versions.Python3 }}/Python-{{ versions.Python3 }}.tgz dest={{ directories.common.src }}
+  when: which_python3.stat.exists == False
+
+- name: Unfold the tarball
+  command: tar zxf Python-{{ versions.Python3 }}.tgz chdir={{ directories.common.src }}
+  when: which_python3.stat.exists == False
+
+- name: Install Python
+  shell: >
+    ./configure --prefix={{ directories.Python3.prefix }} --enable-shared &&
+    make &&
+    make install
+    chdir={{ directories.common.src }}Python-{{ versions.Python3 }}
+  when: which_python3.stat.exists == False
+
+#- name: Make symbolic link of Python
+#  file: src={{ directories.Python3.prefix }}bin/python3 dest={{ directories.Python3.prefix }}bin/python state=link
+#  when: which_pytyon3.stat.exists == False
+
+- name: Write the path of Python's library on ld.so.conf
+  lineinfile: dest=/etc/ld.so.conf line={{ directories.Python3.prefix }}lib
+  when: which_python3.stat.exists == False
+#  notify: reload ldconfig
+
+- name: Reload ldconfig
+  command: ldconfig
+  when: which_python3.stat.exists == False
+
+#  - name: Get tarball of distribute（easy_install）
+#    get_url: url={{ base.get_url }}distribute-{{ versions.distribute }}.zip dest={{ directories.common.src }}
+
+#  - name: Unfold the tarball
+#    command: unzip -o distribute-{{ versions.distribute }}.zip chdir={{ directories.common.src }}
+
+#  - name: Install distribute（easy_install）
+#    shell: >
+#      {{ directories.Python3.prefix }}bin/python3 setup.py install
+#      chdir={{ directories.common.src }}distribute-{{ versions.distribute }}
+
+- name: Install pip
+  easy_install: name=pip #executable={{ directories.Python3.prefix }}bin/easy_install
+
+- name: Write PATH of Python on /etc/bashrc
+  lineinfile: dest=/etc/bashrc line="PATH={{ directories.Python3.prefix }}bin:$PATH" insertbefore="^export PATH"
