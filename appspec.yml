@@ -1,9 +1,6 @@
 version: 0.0
 os: linux
 files:
-  - source: mybook/
-    destination: /var/www/django/mybook
-
   - source: /
     destination: /tmp/mybook
 
