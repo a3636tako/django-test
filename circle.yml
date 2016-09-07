@@ -6,10 +6,12 @@ deployment:
   production:
     branch: production
     commands:
-      - sh circleci/deploy-production.sh:
+      - sh circleci/deploy-production.sh
+
 
   development:
     branch: develop
     commands:
-      - sh circleci/deploy-development.sh:
+      - sh circleci/deploy-development.sh
+
 
