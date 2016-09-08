@@ -32,7 +32,7 @@ LOGGING = {
     },
     'handlers': {  # ログをどこに出すかの設定
         'file': {  # どこに出すかの設定に名前をつける `file`という名前をつけている
-            'level': 'INFO',  # DEBUG以上のログを取り扱うという意味
+            'level': 'DEBUG',  # DEBUG以上のログを取り扱うという意味
             'class': 'logging.FileHandler',  # ログを出力するためのクラスを指定
             'filename': '/var/log/django/mybook.log',  # どこに出すか
             'formatter': 'all',  # どの出力フォーマットで出すかを名前で指定
@@ -41,7 +41,7 @@ LOGGING = {
     'loggers': {  # どんなloggerがあるかを設定する
         'command': {  # commandという名前のloggerを定義
             'handlers': ['file'],  # 先述のfile, consoleの設定で出力
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
     },
 }

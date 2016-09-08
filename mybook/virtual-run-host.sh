@@ -12,6 +12,9 @@ kill -QUIT `cat /var/www/django/${APP_NAME}/mybook.pid`
 mkdir -p /var/log/uwsgi
 chmod 0777 /var/log/uwsgi
 
+mkdir -p /var/log/django
+chmod 0777 /var/log/django
+
 uwsgi --ini /var/www/django/${APP_NAME}/${APP_NAME}_uwsgi.ini
 
 service nginx restart
