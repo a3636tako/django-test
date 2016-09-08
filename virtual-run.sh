@@ -1,5 +1,3 @@
 #!/bin/bash
 
-APP_NAME=mybook
-
-vagrant ssh -c "sudo kill -QUIT `cat ${APP_NAME}/mybook.pid` ; sudo sh /vagrant/codedeploy/applicationStart.sh"
+vagrant ssh -c "sudo sh /var/www/django/mybook/virtual-run-host.sh"

@@ -1,13 +1,9 @@
 #!/bin/bash
 
-if [ "$DEPLOYMENT_GROUP_NAME" = "Production" ]
-then
-  export DJANGO_RUN_MACHINE=production
-  APP_NAME=mybook-prod
-else
-  export DJANGO_RUN_MACHINE=develop
-  APP_NAME=mybook
-fi
+APP_NAME=mybook
+
+export DJANGO_RUN_MACHINE=virtual
+kill -QUIT `cat /var/www/django/${APP_NAME}/mybook.pid`
 
 /opt/virtualenv/${APP_NAME}/bin/python /var/www/django/${APP_NAME}/manage.py migrate
 
@@ -19,5 +15,3 @@ chmod 0777 /var/log/uwsgi
 uwsgi --ini /var/www/django/${APP_NAME}/${APP_NAME}_uwsgi.ini
 
 service nginx restart
-
-
