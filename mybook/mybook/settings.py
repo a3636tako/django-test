@@ -130,6 +130,7 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+
 # switch settings
 run_machine = os.environ.get("DJANGO_RUN_MACHINE")
 if run_machine == "virtual":
